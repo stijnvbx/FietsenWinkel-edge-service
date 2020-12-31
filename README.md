@@ -40,7 +40,7 @@ Type : MongoDB
 - PUT /fietsen
 - DELETE /fietsen/merk/{merk}/model/{model}
 #### onderdelen-service
-Gemaakt door : Iebe Maes
+Gemaakt door : Stijn Van Braband
 
 ServerPort : 8052
 
@@ -58,7 +58,26 @@ Type : MongoDB
 - PUT /onderdelen
 - DELETE /onderdelen/merk/{merk}/naam/{naam}
 #### bestllings-service
+Gemaakt door : Axel Huybrechts
 
+ServerPort : 8055
+
+Githublink : https://github.com/axei500/bestllings_service
+
+DockerHubLink :
+
+##### Database
+Type : PostgresSql
+##### Endpoints
+- GET /bestellingen/email/{email}
+- GET /bestellingen/onderdeel/{onderdeelNaam}
+- GET /bestellingen/onderdeelMerk/{onderdeelMerk}
+- GET /bestellingen/fiets/{fietsMerk}
+- GET /bestellingen/fietsModel/{fietsModel}
+- GET /bestelling/{leverancierBonNummer}
+- POST /bestellingen
+- PUT /bestellingen
+- DELETE /bestelling/{leverancierBonNummer}
 #### Klanten-service
 
 ## Swagger werking
