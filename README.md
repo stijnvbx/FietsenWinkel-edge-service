@@ -8,6 +8,8 @@
 
 ### Visual version
 
+![Architectuur](https://user-images.githubusercontent.com/45101479/103455368-bb1a7c00-4cec-11eb-9c31-f3a9cf0a2947.PNG)
+
 ### Written version
 
 #### Edge service
