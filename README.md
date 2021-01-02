@@ -72,8 +72,10 @@ Type : PostgresSql
 - GET /bestellingen/email/{email}
 - GET /bestellingen/onderdeel/{onderdeelNaam}
 - GET /bestellingen/onderdeelMerk/{onderdeelMerk}
+- GET /bestellingen/onderdeelMerk/{onderdeelMerk}/onderdeelNaam/{onderdeelNaam}
 - GET /bestellingen/fiets/{fietsMerk}
 - GET /bestellingen/fietsModel/{fietsModel}
+- GET /bestellingen/fietsModel/{fietsModel}/fietsMerk/{fietsMerk}
 - GET /bestelling/{leverancierBonNummer}
 - POST /bestellingen
 - PUT /bestellingen
