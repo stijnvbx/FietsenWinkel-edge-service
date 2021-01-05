@@ -46,5 +46,28 @@ services:
     links:
       - mongoDbFietsen
     restart: unless-stopped
+
+  mongoDbOnderdelen:
+    image: mongo:latest
+    command: mongod --port 27018
+    container_name: "mongoDbOnderdelen"
+    expose:
+      - 27018
+    ports:
+      - 27018:27018
+    restart: unless-stopped
+  onderdelen-service:
+    image: stijnvbx/onderdelen-service
+    container_name: onderdelen-service
+    environment:
+      SPRING_DATA_MONGODB_HOST: mongoDbOnderdelen
+      SPRING_DATA_MONGODB_PORT: 27018
+    expose:
+      - 8052
+    ports:
+      - 8052:8052
+    links:
+      - mongoDbOnderdelen
+    restart: unless-stopped
 volumes:
   postgres-data:
