@@ -30,7 +30,7 @@ ServerPort : 8051
 
 Githublink : https://github.com/IebeMaes/fietsen-service
 
-DockerHubLink :
+DockerHubLink : https://hub.docker.com/r/iebemaes/fietsen-service
 
 ##### Database
 Type : MongoDB
@@ -48,7 +48,7 @@ ServerPort : 8052
 
 Githublink : https://github.com/stijnvbx/onderdelen-service
 
-DockerHubLink :
+DockerHubLink : https://hub.docker.com/r/stijnvbx/onderdelen-service
 
 ##### Database
 Type : MongoDB
@@ -66,7 +66,7 @@ ServerPort : 8055
 
 Githublink : https://github.com/axei500/bestllings_service
 
-DockerHubLink :
+DockerHubLink : https://hub.docker.com/repository/docker/axei500/bestellings-service
 
 ##### Database
 Type : PostgresSql
@@ -83,6 +83,17 @@ Type : PostgresSql
 - PUT /bestellingen
 - DELETE /bestelling/{leverancierBonNummer}
 #### Klanten-service
+Gemaakt door : Ruben Horemans
+
+ServerPort : 
+
+Githublink : 
+
+DockerHubLink : 
+
+##### Database
+Type : PostgresSql
+##### Endpoints
 
 ## Swagger werking
 
