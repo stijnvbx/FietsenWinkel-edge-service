@@ -3,6 +3,9 @@
 ## Thema : Fietsen winkel
 
 ### Beschrijving
+De backend voor een fietsen winkel applicatie met behulp van microservices.
+De applictie zal dienen voor de werknmers om in de winkel te gebruiken.
+Er zullen fietsen,onderdelen,klanten en bestellingen in het syteem te vinden zijn.
 
 ## Diagram microservices architectuur
 
@@ -96,7 +99,9 @@ Type : PostgresSql
 ##### Endpoints
 
 ## Swagger werking
-
+Om dit te testen zorg eerst dat je docker hebt geinstalleerd.
+Nu kan je met behulp van docker compose alle ander service binnen halen al images van dockerhub, met behulp van het commando docker-compose up(Gebruik in de roet van je project).
+Daartna kan je naar deze link surfen http://localhost:8050/swagger-ui.html/ .
 ### Route 1
 ### Route 2
 ### Route 3
