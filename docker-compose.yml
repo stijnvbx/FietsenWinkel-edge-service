@@ -1,0 +1,50 @@
+version: "3"
+services:
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    expose:
+      - 5432
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=testdb
+    restart: unless-stopped
+  # APP*****************************************
+  bestellings_service:
+    image: axei500/bestellings-service:latest
+    container_name: bestellings_service
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/testdb
+    expose:
+      - 8055
+    ports:
+      - 8055:8055
+    restart: unless-stopped
+
+  mongoDbFietsen:
+    image: mongo:latest
+    container_name: "mongoDbFietsen"
+    expose:
+      - 27017
+    ports:
+      - 27017:27017
+    restart: unless-stopped
+  fietsen-service:
+    image: iebemaes/fietsen-service
+    container_name: fietsen-service
+    environment:
+      SPRING_DATA_MONGODB_HOST : mongoDbFietsen
+    expose:
+      - 8051
+    ports:
+      - 8051:8051
+    links:
+      - mongoDbFietsen
+    restart: unless-stopped
+volumes:
+  postgres-data:
