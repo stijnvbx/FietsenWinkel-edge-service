@@ -35,7 +35,7 @@ public class FietsenWinkelController {
     @Value("${klantservice.baseurl}")
     private String klantServiceBaseUrl;
 
-
+    //TODO onderdeel kan nooit een lijst zijn omdat leverancier bon uniek is dus verander naar levbon naar onderdeelnaam
     @GetMapping("/bestellingen/leverancierBonNummer/{leverancierBonNummer}/onderdeelMerk/{merk}")
     public FilledBestelling getBestellingenByLeverancierBonNummerAndOnderdeelNaam(@PathVariable String leverancierBonNummer, @PathVariable String merk) {
 
@@ -57,7 +57,7 @@ public class FietsenWinkelController {
         List<FilledBestelling> returnList = new ArrayList<>();
 
         ResponseEntity<List<Bestelling>> responseEntityBestellingen =
-                restTemplate.exchange("http://" + bestellingServiceBaseUrl + "email/{email}",
+                restTemplate.exchange("http://" + bestellingServiceBaseUrl + "/bestellingen/email/{email}",
                         HttpMethod.GET, null, new ParameterizedTypeReference<List<Bestelling>>() {
                         }, email);
 
@@ -65,11 +65,14 @@ public class FietsenWinkelController {
 
         for (Bestelling bestelling:
                 bestellingen) {
+            if(bestelling.getFietsMerk() != null || bestelling.getFietsModel() != null)
+            {
             Fiets fiets =
                     restTemplate.getForObject("http://" + fietsenServiceBaseUrl + "/merk/{merk}/model/{model}",
                             Fiets.class, bestelling.getFietsMerk(), bestelling.getFietsModel());
 
             returnList.add(new FilledBestelling(bestelling, fiets));
+        }
         }
 
         return returnList;
