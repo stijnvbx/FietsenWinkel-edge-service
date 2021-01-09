@@ -4,6 +4,7 @@ import com.example.fietsenwinkeledgeservice.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -70,6 +71,9 @@ public class FietsenWinkelController {
         return returnList;
     }
 
+    //bestellingen door klantnummer
+
+
     @PostMapping("/bestellingen")
     public FilledBestelling createBestelling(@RequestBody Bestelling bestellingBody){
         Bestelling bestelling = restTemplate.postForObject("http://" + bestellingServiceBaseUrl + "/bestellingen",
@@ -79,6 +83,23 @@ public class FietsenWinkelController {
         Fiets fiets = restTemplate.getForObject("http://" + fietsenServiceBaseUrl + "/fietsen/model/{model}", Fiets.class, bestellingBody.getFietsModel());
 
         return new FilledBestelling(bestelling, fiets, klant);
+    }
+
+    @PutMapping("/bestellingen")
+    public FilledBestelling updateBestelling(@RequestParam String leverancierBonNummer, @RequestParam String fietsMerk, @RequestParam String fietsModel) {
+        Bestelling bestelling = restTemplate.getForObject("http://" + bestellingServiceBaseUrl + "/bestelling/{leverancierBonNummer}", Bestelling.class, leverancierBonNummer);
+        bestelling.setFietsMerk(fietsMerk);
+        bestelling.setFietsModel(fietsModel);
+
+        ResponseEntity<Bestelling> responseEntityBestelling = restTemplate.exchange("http://" + bestellingServiceBaseUrl + "/bestellingen", HttpMethod.PUT, new HttpEntity<>(bestelling), Bestelling.class);
+
+        Bestelling retrievedBestelling = responseEntityBestelling.getBody();
+
+        Fiets fiets = new Fiets(fietsMerk, fietsModel);
+
+        Klant klant = restTemplate.getForObject("http://" + klantServiceBaseUrl + "/klanten/klantnummer?klantnummer=" + retrievedBestelling.getKlantnummer(), Klant.class);
+
+        return new FilledBestelling(retrievedBestelling, fiets, klant);
     }
 
     @DeleteMapping("/bestelling/{leverancierBonNummer}")

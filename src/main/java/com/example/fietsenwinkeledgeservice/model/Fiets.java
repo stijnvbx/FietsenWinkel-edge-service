@@ -11,6 +11,11 @@ public class Fiets {
     public Fiets() {
     }
 
+    public Fiets(String merk, String model) {
+        this.merk = merk;
+        this.model = model;
+    }
+
     public Fiets(String merk, String model, Integer grootte, Integer prijs, Integer voorraad) {
         this.merk = merk;
         this.model = model;
