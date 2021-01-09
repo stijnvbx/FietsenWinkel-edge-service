@@ -1,17 +1,12 @@
 package com.example.fietsenwinkeledgeservice.controller;
 
-import com.example.fietsenwinkeledgeservice.model.Bestelling;
-import com.example.fietsenwinkeledgeservice.model.Fiets;
-import com.example.fietsenwinkeledgeservice.model.FilledBestelling;
-import com.example.fietsenwinkeledgeservice.model.Onderdeel;
+import com.example.fietsenwinkeledgeservice.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
@@ -74,4 +69,23 @@ public class FietsenWinkelController {
 
         return returnList;
     }
+
+    @PostMapping("/bestellingen")
+    public FilledBestelling createBestelling(@RequestBody Bestelling bestellingBody){
+        Bestelling bestelling = restTemplate.postForObject("http://" + bestellingServiceBaseUrl + "/bestellingen",
+                new Bestelling(bestellingBody.getLeverancierBonNummer(),bestellingBody.getKlantnummer() , bestellingBody.getEmail(),bestellingBody.getPrijs(), bestellingBody.getVoorschot(), bestellingBody.getFietsMerk() ,bestellingBody.getFietsModel()), Bestelling.class);
+        Klant klant = restTemplate.getForObject("http://" + klantServiceBaseUrl + "/klanten/klantnummer?klantnummer=" + bestellingBody.getKlantnummer(), Klant.class);
+
+        Fiets fiets = restTemplate.getForObject("http://" + fietsenServiceBaseUrl + "/fietsen/model/{model}", Fiets.class, bestellingBody.getFietsModel());
+
+        return new FilledBestelling(bestelling, fiets, klant);
+    }
+
+    @DeleteMapping("/bestelling/{leverancierBonNummer}")
+    public ResponseEntity deleteBestelling(@PathVariable String leverancierBonNummer) {
+        restTemplate.delete("http://" + bestellingServiceBaseUrl + "/bestelling/" + leverancierBonNummer);
+
+        return ResponseEntity.ok().build();
+    }
+
 }

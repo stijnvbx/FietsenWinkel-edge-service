@@ -8,6 +8,8 @@ public class Fiets {
     private Integer prijs;
     private Integer voorraad;
 
+    public Fiets() {
+    }
 
     public Fiets(String merk, String model, Integer grootte, Integer prijs, Integer voorraad) {
         this.merk = merk;

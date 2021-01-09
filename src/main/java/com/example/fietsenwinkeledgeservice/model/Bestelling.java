@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 public class Bestelling {
     private Integer id;
     private String leverancierBonNummer;
+    private String klantnummer;
 
     private String email;
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
@@ -25,6 +26,8 @@ public class Bestelling {
     private String onderdeelMerk;
     private String onderdeelNaam;
 
+    public Bestelling() {
+    }
 
     public Bestelling(String leverancierBonNummer, String email, LocalDateTime bestelDatum, int prijs, int voorschot) {
         setLeverancierBonNummer(leverancierBonNummer);
@@ -32,6 +35,16 @@ public class Bestelling {
         setBestelDatum(bestelDatum);
         setPrijs(prijs);
         setVoorschot(voorschot);
+    }
+
+    public Bestelling(String leverancierBonNummer,String klantnummer, String email, int prijs, int voorschot,String fietsMerk, String fietsModel) {
+        setLeverancierBonNummer(leverancierBonNummer);
+        setKlantnummer(klantnummer);
+        setEmail(email);
+        setPrijs(prijs);
+        setVoorschot(voorschot);
+        setFietsMerk(fietsMerk);
+        setFietsModel(fietsModel);
     }
 
     public String getEmail() {
@@ -104,5 +117,21 @@ public class Bestelling {
 
     public void setOnderdeelNaam(String onderdeelNaam) {
         this.onderdeelNaam = onderdeelNaam;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getKlantnummer() {
+        return klantnummer;
+    }
+
+    public void setKlantnummer(String klantnummer) {
+        this.klantnummer = klantnummer;
     }
 }

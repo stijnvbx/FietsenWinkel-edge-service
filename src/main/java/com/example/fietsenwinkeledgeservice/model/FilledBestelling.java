@@ -10,6 +10,7 @@ public class FilledBestelling {
     private String email;
     private String merk;
     private String model;
+    private String klantnummer;
 
     private List<Onderdeel> onderdelen;
 
@@ -18,6 +19,14 @@ public class FilledBestelling {
         setEmail(bestelling.getEmail());
         setMerk(fiets.getMerk());
         setModel(fiets.getModel());
+    }
+
+    public FilledBestelling(Bestelling bestelling, Fiets fiets, Klant klant) {
+        setLeverancierBonNummer(bestelling.getLeverancierBonNummer());
+        setEmail(bestelling.getEmail());
+        setMerk(fiets.getMerk());
+        setModel(fiets.getModel());
+        setKlantnummer(klant.getKlantnummer());
     }
 
     public FilledBestelling(Bestelling bestelling, List<Onderdeel> onderdelen) {
@@ -64,5 +73,13 @@ public class FilledBestelling {
 
     public void setModel(String model) {
         this.model = model;
+    }
+
+    public String getKlantnummer() {
+        return klantnummer;
+    }
+
+    public void setKlantnummer(String klantnummer) {
+        this.klantnummer = klantnummer;
     }
 }
