@@ -47,6 +47,26 @@ public class FietsenWinkelController {
         return new FilledBestelling(bestelling, responseEntityOnderdelen.getBody());
     }
 
+    @GetMapping("/bestellingen")
+    public List<FilledBestelling> getAllBestellingen() {
+        List<FilledBestelling> returnList = new ArrayList<>();
+
+        ResponseEntity<List<Bestelling>> responseEntityBestellingen =
+                restTemplate.exchange("http://" + bestellingServiceBaseUrl + "/bestellingen/",
+                        HttpMethod.GET, null, new ParameterizedTypeReference<List<Bestelling>>() {});
+
+        List<Bestelling> bestellingen = responseEntityBestellingen.getBody();
+
+        for (Bestelling bestelling:
+                bestellingen) {
+            Klant klant = restTemplate.getForObject("http://" + klantServiceBaseUrl + "/klanten/klantnummer?klantnummer=" + bestelling.getKlantnummer(), Klant.class);
+
+            returnList.add(new FilledBestelling(bestelling, klant));
+        }
+
+        return returnList;
+    }
+
     @GetMapping("/bestellingen/email/{email}")
     public List<FilledBestelling> getBestellingenByEmail(@PathVariable String email) {
 
@@ -61,18 +81,15 @@ public class FietsenWinkelController {
 
         for (Bestelling bestelling:
                 bestellingen) {
-            Fiets fiets =
-                    restTemplate.getForObject("http://" + fietsenServiceBaseUrl + "/merk/{merk}/model/{model}",
-                            Fiets.class, bestelling.getFietsMerk(), bestelling.getFietsModel());
+            Fiets fiets = restTemplate.getForObject("http://" + fietsenServiceBaseUrl + "/fietsen/model/{model}", Fiets.class, bestelling.getFietsModel());
+            Klant klant = restTemplate.getForObject("http://" + klantServiceBaseUrl + "/klanten/klantnummer?klantnummer=" + bestelling.getKlantnummer(), Klant.class);
 
-            returnList.add(new FilledBestelling(bestelling, fiets));
+
+            returnList.add(new FilledBestelling(bestelling, fiets, klant));
         }
 
         return returnList;
     }
-
-    //bestellingen door klantnummer
-
 
     @PostMapping("/bestellingen")
     public FilledBestelling createBestelling(@RequestBody Bestelling bestellingBody){

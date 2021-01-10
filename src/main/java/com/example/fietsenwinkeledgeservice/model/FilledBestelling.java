@@ -21,6 +21,12 @@ public class FilledBestelling {
         setModel(fiets.getModel());
     }
 
+    public FilledBestelling(Bestelling bestelling, Klant klant) {
+        setLeverancierBonNummer(bestelling.getLeverancierBonNummer());
+        setEmail(bestelling.getEmail());
+        setKlantnummer(klant.getKlantnummer());
+    }
+
     public FilledBestelling(Bestelling bestelling, Fiets fiets, Klant klant) {
         setLeverancierBonNummer(bestelling.getLeverancierBonNummer());
         setEmail(bestelling.getEmail());
