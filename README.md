@@ -88,16 +88,18 @@ Type : PostgresSql
 #### Klanten-service
 Gemaakt door : Ruben Horemans
 
-ServerPort : 
+ServerPort : 8054
 
-Githublink : 
+Githublink : https://github.com/RubenH1999/klanten?fbclid=IwAR2HfmQM6e0Bj0vGY-TmU71r0lepu4h4mhYUZz87dmbPc_YME-m31TyOmn0
 
 DockerHubLink : 
 
 ##### Database
 Type : PostgresSql
 ##### Endpoints
-
+- GET /klanten
+- GET /klanten/klantnummer
+- GET /klanten/bedrijf/{bedrijf}
 ## Swagger werking
 Om dit te testen zorg eerst dat je docker hebt geinstalleerd.
 Nu kan je met behulp van docker compose alle ander service binnen halen al images van dockerhub, met behulp van het commando docker-compose up(Gebruik in de roet van je project).
