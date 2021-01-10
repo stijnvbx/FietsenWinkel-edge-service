@@ -1,0 +1,11 @@
+spring:
+  cors:
+    allow-credentials: true
+    allowed-origins: "*"
+    allowed-headers: "*"
+    allowed-methods: "*"
+    exposed-headers:
+      - "Location"
+      - "Content-Type"
+      - "Content-Disposition"
+    max-age: 3600

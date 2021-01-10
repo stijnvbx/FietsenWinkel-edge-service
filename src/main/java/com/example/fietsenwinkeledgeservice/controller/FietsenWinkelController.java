@@ -13,6 +13,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.ArrayList;
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 public class FietsenWinkelController {
 
@@ -47,6 +48,7 @@ public class FietsenWinkelController {
         return new FilledBestelling(bestelling, responseEntityOnderdelen.getBody());
     }
 
+
     @GetMapping("/bestellingen")
     public List<FilledBestelling> getAllBestellingen() {
         List<FilledBestelling> returnList = new ArrayList<>();
@@ -65,6 +67,18 @@ public class FietsenWinkelController {
         }
 
         return returnList;
+    }
+
+    @GetMapping("/fietsen")
+    public List<Fiets> getAllFietsen() {
+
+        ResponseEntity<List<Fiets>> responseEntityFietsen =
+                restTemplate.exchange("http://" + fietsenServiceBaseUrl + "/fietsen",
+                        HttpMethod.GET, null, new ParameterizedTypeReference<List<Fiets>>() {});
+
+        List<Fiets> fietsen = responseEntityFietsen.getBody();
+
+        return fietsen;
     }
 
     @GetMapping("/bestellingen/email/{email}")
@@ -89,6 +103,13 @@ public class FietsenWinkelController {
         }
 
         return returnList;
+    }
+
+    @GetMapping("/klanten/klantnummer")
+    public Klant getKlantByKlantnummer(@RequestParam String klantnummer) {
+        Klant klant = restTemplate.getForObject("http://" + klantServiceBaseUrl + "/klanten/klantnummer?klantnummer=" + klantnummer, Klant.class);
+
+        return klant;
     }
 
     @PostMapping("/bestellingen")
