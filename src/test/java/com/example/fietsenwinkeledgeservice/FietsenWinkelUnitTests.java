@@ -31,6 +31,8 @@ import static org.springframework.test.web.client.match.MockRestRequestMatchers.
 import static org.springframework.test.web.client.response.MockRestResponseCreators.withStatus;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.mockito.BDDMockito.given;
+
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -324,6 +326,17 @@ public class FietsenWinkelUnitTests {
                 .andExpect(jsonPath("$.model", is("fietsmodel1")))
                 .andExpect(jsonPath("$.klantnummer", is("123")));
 
+    }
+
+    @Test
+    public void whenDeleteRanking_thenReturnStatusOk() throws Exception {
+        mockServer.expect(ExpectedCount.once(),
+                requestTo(new URI("http://" + bestellingServiceBaseUrl + "/bestelling/leverancierbonnummer3" )))
+                .andExpect(method(HttpMethod.DELETE))
+                .andRespond(withStatus(HttpStatus.OK));
+
+        mockMvc.perform(delete("/bestelling/{leverancierBonNummer}", "leverancierbonnummer3"))
+                .andExpect(status().isOk());
     }
 
 
