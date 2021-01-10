@@ -7,12 +7,16 @@ public class Onderdeel {
     private Integer voorraad;
     private Integer prijs;
 
+    public Onderdeel() {
+    }
+
     public Onderdeel(String naam, String merk, Integer voorraad, Integer prijs) {
         this.naam = naam;
         this.merk = merk;
         this.voorraad = voorraad;
         this.prijs = prijs;
     }
+
 
     public String getId() {
         return id;
