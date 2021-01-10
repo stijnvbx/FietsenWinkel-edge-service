@@ -102,7 +102,7 @@ Type : PostgresSql
 - GET /klanten/bedrijf/{bedrijf}
 ## Swagger werking
 Om dit te testen zorg eerst dat je docker hebt geinstalleerd.
-Nu kan je met behulp van docker compose alle ander service binnen halen al images van dockerhub, met behulp van het commando docker-compose up(Gebruik in de roet van je project).
+Nu kan je met behulp van docker compose alle ander services binnen halen als images van dockerhub, met behulp van het commando docker-compose up(Gebruik in de root van je project).
 Daartna kan je naar deze link surfen http://localhost:8050/swagger-ui.html/ .
 ### Route 1
 ### Route 2
