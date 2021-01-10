@@ -113,12 +113,12 @@ public class FietsenWinkelController {
     }
 
     @PostMapping("/bestellingen")
-    public FilledBestelling createBestelling(@RequestBody Bestelling bestellingBody){
+    public FilledBestelling createBestelling(@RequestParam String leverancierBonNummer, @RequestParam String klantnummer, @RequestParam String email, @RequestParam Integer prijs, @RequestParam Integer voorschot, @RequestParam String fietsMerk, @RequestParam String fietsModel){
         Bestelling bestelling = restTemplate.postForObject("http://" + bestellingServiceBaseUrl + "/bestellingen",
-                new Bestelling(bestellingBody.getLeverancierBonNummer(),bestellingBody.getKlantnummer() , bestellingBody.getEmail(),bestellingBody.getPrijs(), bestellingBody.getVoorschot(), bestellingBody.getFietsMerk() ,bestellingBody.getFietsModel()), Bestelling.class);
-        Klant klant = restTemplate.getForObject("http://" + klantServiceBaseUrl + "/klanten/klantnummer?klantnummer=" + bestellingBody.getKlantnummer(), Klant.class);
+                new Bestelling(leverancierBonNummer, klantnummer, email, prijs, voorschot, fietsMerk, fietsModel), Bestelling.class);
+        Klant klant = restTemplate.getForObject("http://" + klantServiceBaseUrl + "/klanten/klantnummer?klantnummer=" + klantnummer, Klant.class);
 
-        Fiets fiets = restTemplate.getForObject("http://" + fietsenServiceBaseUrl + "/fietsen/model/{model}", Fiets.class, bestellingBody.getFietsModel());
+        Fiets fiets = restTemplate.getForObject("http://" + fietsenServiceBaseUrl + "/fietsen/model/{model}", Fiets.class, fietsModel);
 
         return new FilledBestelling(bestelling, fiets, klant);
     }

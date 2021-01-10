@@ -263,10 +263,11 @@ public class FietsenWinkelUnitTests {
                         .body(mapper.writeValueAsString(klant1))
                 );
 
-        mockMvc.perform(get("/klanten/klantnummer/{klantnummer}", "123"))
+        mockMvc.perform(get("/klanten/klantnummer")
+                .param("klantnummer", "123"))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id", is(654L)))
+                .andExpect(jsonPath("$.id", is(654)))
                 .andExpect(jsonPath("$.voornaam", is("klant1")))
                 .andExpect(jsonPath("$.achternaam", is("achternaam1")))
                 .andExpect(jsonPath("$.klantnummer", is("123")))
@@ -307,16 +308,21 @@ public class FietsenWinkelUnitTests {
                 );
 
         mockMvc.perform(post("/bestellingen")
-        .param("leverancierBonNummer", bestellingadd.getLeverancierBonNummer()))
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .param("leverancierBonNummer", bestellingadd.getLeverancierBonNummer())
+                .param("klantnummer", bestellingadd.getKlantnummer())
+                .param("email", bestellingadd.getEmail())
+                .param("prijs", "2000")
+                .param("voorschot", "52")
+                .param("fietsMerk", bestellingadd.getFietsMerk())
+                .param("fietsModel", bestellingadd.getFietsModel())
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id", is(654L)))
-                .andExpect(jsonPath("$.voornaam", is("klant1")))
-                .andExpect(jsonPath("$.achternaam", is("achternaam1")))
-                .andExpect(jsonPath("$.klantnummer", is("123")))
-                .andExpect(jsonPath("$.gsmNummer", is("04654654")))
+                .andExpect(jsonPath("$.leverancierBonNummer", is("leverancierbonnummer4")))
                 .andExpect(jsonPath("$.email", is("email1")))
-                .andExpect(jsonPath("$.bedrijf", is("TM")));
+                .andExpect(jsonPath("$.merk", is("fietsmerk1")))
+                .andExpect(jsonPath("$.model", is("fietsmodel1")))
+                .andExpect(jsonPath("$.klantnummer", is("123")));
 
     }
 
