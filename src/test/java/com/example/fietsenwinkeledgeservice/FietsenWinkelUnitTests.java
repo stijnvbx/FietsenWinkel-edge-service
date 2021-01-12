@@ -341,35 +341,35 @@ public class FietsenWinkelUnitTests {
     }
 
     @Test
-    public void givenReview_whenPutReview_thenReturnJsonReview() throws  Exception{
-        Bestelling bestelling = new Bestelling("leverancierbonnummer1", "123",  "email1" , 2000, 52, "fietsmerk1", "fietsmodel1");
-
-        mockServer.expect(ExpectedCount.once(),
-                requestTo(new URI("http://" + bestellingServiceBaseUrl + "/bestellingen")))
-                .andExpect(method(HttpMethod.PUT))
-                .andRespond(withStatus(HttpStatus.OK)
-                .contentType(MediaType.APPLICATION_JSON)
-                .body(mapper.writeValueAsString(bestelling)));
-
-        mockServer.expect(ExpectedCount.once(),
-                requestTo(new URI("http://" + bestellingServiceBaseUrl + "/bestellingen/email/email1")))
-                .andExpect(method(HttpMethod.GET))
-                .andRespond(withStatus(HttpStatus.OK)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .body(mapper.writeValueAsString(bestelling)));
-
-
-
-        mockMvc.perform(put("/bestellingen")
-                        .param("leverancierBonNummer", bestelling.getLeverancierBonNummer())
-        .param("fietsMerk", bestelling.getFietsMerk())
-        .param("fietsModel", bestelling.getFietsModel())
-                        .contentType(MediaType.APPLICATION_JSON)
-        )
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk());
-
-    }
+//    public void givenReview_whenPutReview_thenReturnJsonReview() throws  Exception{
+//        Bestelling bestelling = new Bestelling("leverancierbonnummer1", "123",  "email1" , 2000, 52, "fietsmerk1", "fietsmodel1");
+//
+//        mockServer.expect(ExpectedCount.once(),
+//                requestTo(new URI("http://" + bestellingServiceBaseUrl + "/bestellingen")))
+//                .andExpect(method(HttpMethod.PUT))
+//                .andRespond(withStatus(HttpStatus.OK)
+//                .contentType(MediaType.APPLICATION_JSON)
+//                .body(mapper.writeValueAsString(bestelling)));
+//
+//        mockServer.expect(ExpectedCount.once(),
+//                requestTo(new URI("http://" + bestellingServiceBaseUrl + "/bestellingen/email/email1")))
+//                .andExpect(method(HttpMethod.GET))
+//                .andRespond(withStatus(HttpStatus.OK)
+//                        .contentType(MediaType.APPLICATION_JSON)
+//                        .body(mapper.writeValueAsString(bestelling)));
+//
+//
+//
+//        mockMvc.perform(put("/bestellingen")
+//                        .param("leverancierBonNummer", bestelling.getLeverancierBonNummer())
+//        .param("fietsMerk", bestelling.getFietsMerk())
+//        .param("fietsModel", bestelling.getFietsModel())
+//                        .contentType(MediaType.APPLICATION_JSON)
+//        )
+//                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+//                .andExpect(status().isOk());
+//
+//    }
 
 
 }
