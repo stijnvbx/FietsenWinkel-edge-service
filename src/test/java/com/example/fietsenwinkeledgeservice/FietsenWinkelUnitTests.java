@@ -340,7 +340,7 @@ public class FietsenWinkelUnitTests {
                 .andExpect(status().isOk());
     }
 
-    @Test
+//    @Test
 //    public void givenReview_whenPutReview_thenReturnJsonReview() throws  Exception{
 //        Bestelling bestelling = new Bestelling("leverancierbonnummer1", "123",  "email1" , 2000, 52, "fietsmerk1", "fietsmodel1");
 //
