@@ -19,7 +19,23 @@ public class SpringFoxConfig {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
                 .apis(RequestHandlerSelectors.any())
-                .paths(PathSelectors.any())
-                .build();
+                .paths(regex("/.*"))
+                .build().apiInfo(apiInfo());
     }
+
+    private ApiInfo apiInfo()
+    {
+        ApiInfo apiInfo = new ApiInfo(
+                "My Project's REST API",
+                "This is a description of your API.",
+                "version-1",
+                "API TOS",
+                "me@wherever.com",
+                "API License",
+                "API License URL"
+        );
+        return apiInfo;
+    }
+
+
 }
