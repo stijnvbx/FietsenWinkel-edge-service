@@ -11,7 +11,7 @@ Er zullen fietsen,onderdelen,klanten en bestellingen in het syteem te vinden zij
 
 ### Visual version
 
-![Architectuur](https://user-images.githubusercontent.com/45101479/103455368-bb1a7c00-4cec-11eb-9c31-f3a9cf0a2947.PNG)
+![Architectuur](https://user-images.githubusercontent.com/45101479/104316344-a1431b00-54dc-11eb-8c4b-5a661460b900.png)
 
 ### Written version
 
